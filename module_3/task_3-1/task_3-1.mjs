@@ -5,10 +5,21 @@ initPrintOut(document.getElementById("txtOut"));
 printOut("--- Part 1, 2, 3 ----------------------------------------------------------------------------------------");
 /* Put your code below here!*/
 printOut("Task 1, 2 and 3");
-let wakeUpTime = 2;
-if ("Replace this") {
-  printOut("I can take the bus to school.");
+const wakeUpTime = 7;
+const wakeUpTime2 = 8; 
+
+if (wakeUpTime ==7) {
+  printOut("Jeg kan ta bussen til skolen.");
 }
+else if (wakeUpTime2 == 8) {
+printOut("Jeg kan ta toget.")
+}
+else {  
+printOut("Jeg må ta bilen.")  
+}
+
+
+
 printOut(newLine);
 
 printOut("--- Part 4, 5 --------------------------------------------------------------------------------------------");

@@ -12,31 +12,47 @@
     <ol>
       <li>Where should you use constants, and where should you use variables? Can they all be constants?</li>
       <p>
-				[Replace this with you answer]
+				[Man bør alltid bruke "const", så lenge man ikke skal endre på verdien kan man bare bruke "const". 
+        Hvis man skal endre på verdien, kan man heller gå tilbake å endre på deklarasjonsformen til "let". ]
 			</p>
       <li>How do parentheses affect the arithmetic outcome of an expression?</li>
       <p>
-				[Replace this with you answer]
+				[Parenteser påvirker hvilke deler av et regnestykke som adderes/subtraheres/divideres/multipliseres/ 
+        blir modulusifisert med hverandre. ]
 			</p>
       <li>How do we limit floating-point numbers to a given number of decimals?</li>
       <p>
-				[Replace this with you answer]
+				[For å kunne begrense svaret/resulatet av et regnestykke, bruker vi toFixed-funksjonen for å 
+        runde desimalene til (x) antall desimaler, ut i fra hvor mange desimaler vi ønsker. Vi setter ønsket 
+        antall desimaler inn i (). ]
 			</p>
       <li>How can we compare two floating-point values to see if they are equal (is 12.199999 the same as 12.2)?</li>
       <p>
-				[Replace this with you answer]
+				[For å sammenligne to desimaltalls verdi, kan vi bruke sammenligningsopreatorer. Det vil si tegnene
+        "<" , ">", "=" og "!" i ulike kombinasjoner. Ønsker vi å sammenligne x med y, kan vi for eksempel bruke x >= y for 
+        å se om x er større / lik y. ]
 			</p>
       <li>What do comparison operators return, and how can we check if they are FALSE or TRUE?</li>
       <p>
-				[Replace this with you answer]
+				[Sammenligningsoperatorer gir oss svar på sammenligninger av verdier. Da får vi enten "true" eller 
+        "false" som svar. Når man bruker printOut, får man svar i nettleseren om det er "false" eller "true". ]
 			</p>
       <li>How does the Math.random() function work, and what can it be used for?</li>
       <p>
-				[Replace this with you answer]
+				[Ved bruk av Math.random() returneres et tilfeldig nummer lavere enn 1. Om man ønsker et høyere
+        tilfeldig tall, kan man bruke Math.random sammen med Math.floor. Ønsker man f.eks. å generere 
+        et tilfeldig tall mellom 0-100, gjør man slik:
+        Math.floor(Math.random() * 101);
+
+        Ved ønske om tilfeldig tall mellom 0-100, inkluderes alle tall OPP TIL 100, men ikke tallet 100.
+        Derfor må man sette ett tall over ønsket variasjonstall.  
+        , ]
 			</p>
       <li>What is modulus (%), and when do we need this operator in mathematical operations?</li>
       <p>
-				[Replace this with you answer]
+				[Modulus brukes når man deler, og ønsker å vite hva som er "resten". Hvis man for eksempel ønsker å 
+        dele 22 dager for å finne ut hvor mange uker det er, kan man bruke modulus. Modulus vil da gi oss 
+        svaret 1. Da har man delt 22 på 7, fått 3 hele uker, og det gjenstår 1 dag.]
 			</p>
     </ol>
 		<script type="module" src="./task_2-2.mjs" defer></script>
