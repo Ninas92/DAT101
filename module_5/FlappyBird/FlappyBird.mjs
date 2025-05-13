@@ -37,7 +37,7 @@ export const GameProps = {
   soundMuted: false,
   dayTime: true,
   speed: 1,
-  status: EGameStatus.idle, //For testing, normalt EGameStatus.idle
+  status: EGameStatus.idle, //For testing, normally EGameStatus.idle
   background: null,
   ground: null,
   hero: null,
@@ -46,12 +46,12 @@ export const GameProps = {
   menu: null,
   score: 0,
   bestScore: 0,
-  sounds: {countDown: null, food: null, gameOver: null, dead: null, running: null},   //Ett objekt med 5 variabler
+  sounds: {countDown: null, food: null, gameOver: null, dead: null, running: null, flap: null},
 };
 
 //--------------- Functions ----------------------------------------------//
 
-function playSound(aSound) {
+export function playSound(aSound) {
   if (!GameProps.soundMuted) {
     aSound.play();
   } else {
@@ -76,9 +76,15 @@ function loadGame() {
 
   //Load sounds
   GameProps.sounds.running = new libSound.TSoundFile("./Media/running.mp3");
+  GameProps.sounds.countDown = new libSound.TSoundFile("./Media/countdown.mp3");
+  GameProps.sounds.food = new libSound.TSoundFile("./Media/food.mp3");
+  GameProps.sounds.gameOver = new libSound.TSoundFile("./Media/gameover.mp3");
+  GameProps.sounds.dead = new libSound.TSoundFile("./Media/heroIsDead.mp3");
+  GameProps.sounds.flap = new libSound.TSoundFile("./Media/flap.mp3");
+
   requestAnimationFrame(drawGame);
   setInterval(animateGame, 10);
-} // end of loadGame
+}// end of loadGame
 
 function drawGame() {
   spcvs.clearCanvas();
@@ -109,6 +115,7 @@ function animateGame() {
   switch (GameProps.status) {
     case EGameStatus.playing:
       if (GameProps.hero.isDead) {
+        playSound(GameProps.sounds.gameOver);
         GameProps.hero.animateSpeed = 0;
         GameProps.hero.update();
         return;
@@ -119,10 +126,11 @@ function animateGame() {
       }
       GameProps.hero.update();
       let delObstacleIndex = -1;
+      
       for (let i = 0; i < GameProps.obstacles.length; i++) {
         const obstacle = GameProps.obstacles[i];
         obstacle.update();
-        if (obstacle.right < GameProps.hero.left && !obstacle.hasPassed) {
+        if(obstacle.right < GameProps.hero.left && !obstacle.hasPassed) {
           //Congratulations, you have passed the obstacle
           GameProps.menu.incScore(20);
           console.log("Score: " + GameProps.score);
@@ -150,11 +158,13 @@ function animateGame() {
       if (delBaitIndex >= 0) {
         GameProps.baits.splice(delBaitIndex, 1);
         GameProps.menu.incScore(10);
+        GameProps.sounds.food.stop();
+        GameProps.sounds.food.play();
       }
       break;
-    case EGameStatus.idle:
-      GameProps.hero.updateIdle();
-      break;
+      case EGameStatus.idle:
+        GameProps.hero.updateIdle();
+        break;
   }
 }
 
@@ -172,7 +182,7 @@ function spawnBait() {
   const pos = new lib2d.TPosition(SpriteInfoList.background.width, 100);
   const bait = new TBait(spcvs, SpriteInfoList.food, pos);
   GameProps.baits.push(bait);
-  //Generer nye baits hvert 0.5 til 1 sekund med step på 0.1
+  //Generate a new bait in 0.5-1.5 seconds
   if (GameProps.status === EGameStatus.playing) {
     const sec = Math.ceil(Math.random() * 5) / 10 + 0.5;
     setTimeout(spawnBait, sec * 1000);
@@ -181,19 +191,16 @@ function spawnBait() {
 
 export function startGame() {
   GameProps.status = EGameStatus.playing;
-  //Helten er død, lag ny helt
+  //The hero is dead, so we must create a new hero
   GameProps.hero = new THero(spcvs, SpriteInfoList.hero1, new lib2d.TPosition(100, 100));
-  //Vi må slette alle hindringer og baits
+  //We must reset the obstacles and baits
   GameProps.obstacles = [];
   GameProps.baits = [];
-  GameProps.score = 0;
   GameProps.menu.reset();
-
   spawnObstacle();
   spawnBait();
-  //Spill av lyd
+  //Play the running sound
   GameProps.sounds.running.play();
-
 }
 
 //--------------- Event Handlers -----------------------------------------//
@@ -211,9 +218,11 @@ function setSoundOnOff() {
 function setDayNight() {
   if (rbDayNight[0].checked) {
     GameProps.dayTime = true;
+    GameProps.background.index = 0;
     console.log("Day time");
   } else {
     GameProps.dayTime = false;
+    GameProps.background.index = 1;
     console.log("Night time");
   }
 } // end of setDayNight
@@ -223,6 +232,8 @@ function onKeyDown(aEvent) {
     case "Space":
       if (!GameProps.hero.isDead) {
         GameProps.hero.flap();
+        GameProps.sounds.flap.stop();
+        GameProps.sounds.flap.play();
       }
       break;
   }

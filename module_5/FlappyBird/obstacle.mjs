@@ -25,31 +25,33 @@ class TObstacle {
     this.hasPassed = false;
   }
 
-  draw() {
+  draw(){
     this.#upper.draw();
     this.#lower.draw();
   }
 
-  update() {
+  update(){
     this.#upper.translate(-1, 0);
     this.#lower.translate(-1, 0);
-    const hasCollided = GameProps.hero.hasCollided(this.#upper) || GameProps.hero.hasCollided(this.#lower);
+    const hasCollided = 
+    GameProps.hero.hasCollided(this.#upper) || 
+    GameProps.hero.hasCollided(this.#lower);
 
-    if (hasCollided) {
+    if(hasCollided){
       GameProps.hero.flap();
       GameProps.hero.isDead = true;
     }
   }
 
-  get right() {
+  get right(){
     return this.#upper.right;
   }
 
-  get left () {
-    return this.#upper.right;
+  get left(){
+    return this.#upper.left;
   }
 
-  get posX() {
+  get posX(){
     return this.#upper.posX;
   }
 }

@@ -130,6 +130,7 @@ class TSoundFile {
       this.#audio.play();
       this.#audioState = EAudioStateType.Playing;
     }
+    //lag if som sjekker når lyden er playing
   }
 
   stop() {

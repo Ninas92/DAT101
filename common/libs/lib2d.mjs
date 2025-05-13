@@ -1,8 +1,7 @@
 "use strict";
-
 /**
  * @library lib2d
- * @description A library for classes that manages 2D graphics.
+ * @description A library for classes that manage 2D graphics.
  */
 
 class TPoint {
@@ -15,7 +14,6 @@ class TPoint {
 } // End of TPoint class
 
 class TPosition extends TPoint {
-  //Extend tar med seg alle public variabler      //Polymorphisme, "Flere muligheter"
   constructor(aX, aY) {
     super(aX, aY);
   }
@@ -25,13 +23,11 @@ class TPosition extends TPoint {
   }
 
   distanceToPoint(aPoint) {
-    const dX = this.x - aPoint.x;
+    const dx = this.x - aPoint.x;
     const dy = this.y - aPoint.y;
-    return Math.hypot(dX, dy);
+    return Math.hypot(dx, dy);
   }
-} //End of TPosition class
-
-//kollisjonsdeteksjon vha. bounding box + top/bottom left/right++
+} // End of TPosition class
 
 class TRectangle extends TPosition {
   constructor(aX, aY, aWidth, aHeight) {
@@ -64,7 +60,7 @@ class TRectangle extends TPosition {
     return true;
   }
 
-  isPositionInside(aPosition){
+  isPositionInside(aPosition) {
     if (this.left >= aPosition.x) return false;
     if (this.right <= aPosition.x) return false;
     if (this.top >= aPosition.y) return false;
@@ -80,8 +76,7 @@ class TRectangle extends TPosition {
     this.x = aPoint.x - this.width / 2;
     this.y = aPoint.y - this.height / 2;
   }
-}
-// End of TRectangle class
+} // End of TRectangle class
 
 const RAD = Math.PI / 180;
 
@@ -100,21 +95,19 @@ class TSineWave {
     this.#angle += this.#frequency;
     return value;
   }
-}
-
-//End of TSineWave
+} // end of TSineWave class
 
 export default {
   /**
    * @class TPoint
-   * @description A class representation for x and y position in 2D.
+   * @description A class representation for x and y point in 2D.
    * @param {number} aX - The x-coordinate.
    * @param {number} aY - The y-coordinate.
    */
   TPoint,
   /**
    * @class TPosition
-   * @dscription A position class for manipulation of point in 2D.
+   * @description A position class for manipulation of point in 2D.
    * @param {number} aX - The x-coordinate.
    * @param {number} aY - The y-coordinate.
    * @extends TPoint
@@ -124,22 +117,27 @@ export default {
   TPosition,
 
   /**
-   * @class TRectangle,
+   * @class TRectangle
    * @extends TPosition
-   * @description a class representation for a rectangle in 2D.
-   * @param {number } aX - the x-coordinate.
-   * @param { number } aY - the y-coordinate.
-   * @param {number} aWidth - the width of the rectangle.
-   * @param {number} aHeight - the width of the rectangle.
-   * @param { }
+   * @description A class representation for a rectangle in 2D.
+   * @param {number} aX - The x-coordinate.
+   * @param {number} aY - The y-coordinate.
+   * @param {number} aWidth - The width of the rectangle.
+   * @param {number} aHeight - The height of the rectangle.
+   * @property {number} width - The width of the rectangle.
+   * @property {number} height - The height of the rectangle.
+   * @property {number} left - The left side of the rectangle.
+   * @property {number} right - The right side of the rectangle.
+   * @property {number} top - The top side of the rectangle.
+   * @property {number} bottom - The bottom side of the rectangle.
    */
   TRectangle,
   /**
    * @class TSineWave
-   * @description A class representation for a sine wave
-   * @param {number} aAmplitude - the amplitude of the wave.
-   * @param {number} aFrequency - the frequency of the wave
-   * @param {number} value - the next value of a wave.
+   * @description A class representation for a sine wave.
+   * @param {number} aAmplitude - The amplitude of the wave.
+   * @param {number} aFrequency - The frequency of the wave.
+   * @property {number} value - The next value of the wave.
    */
   TSineWave,
 };

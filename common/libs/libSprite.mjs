@@ -11,7 +11,6 @@ class TSpriteCanvas {
   #img;
   #boundingRect;
 
-
   constructor(aCanvas) {
     this.#cvs = aCanvas;
     this.#ctx = aCanvas.getContext("2d");
@@ -36,7 +35,7 @@ class TSpriteCanvas {
     const dw = sw;
     const dh = sh;
     if(aRot !== 0){
-      //Hvis vi har rotasjon må vi flytte mitten av destinasjonen til 0,0
+      //Hvis vi har rotasjon må vi flytte midten av destinasjonen til 0,0
       const cx = dx + dw / 2;
       const cy = dy + dh / 2;
       const rad = aRot * Math.PI / 180;
@@ -50,12 +49,12 @@ class TSpriteCanvas {
     }
   } // End of drawSprite
 
- drawText(aText, aPos) {
-  this.#ctx.font = "25px Arial"; 
-  this.#ctx.fillStyle = "#333333";
-  this.#ctx.textAlign = "right";
-  this.#ctx.fillText(aText, aPos.x, aPos.y);
- } 
+  drawText(aText, aPos){
+    this.#ctx.font = "25px Arial";
+    this.#ctx.fillStyle = "#333333";
+    this.#ctx.textAlign = "right";
+    this.#ctx.fillText(aText, aPos.x, aPos.y);
+  }
 
   clearCanvas() {
     this.#ctx.clearRect(0, 0, this.#cvs.width, this.#cvs.height);
@@ -127,13 +126,13 @@ class TSprite {
     return this.#pos.y;
   }
 
-get left() {
-  return this.#pos.x;
-}
+  get left(){
+    return this.#pos.x;
+  }
 
-get right() {
-  return this.#pos.x + this.#spi.width;
-}
+  get right(){
+    return this.#pos.x + this.#spi.width;
+  }
 
   set posX(aX) {
     this.#pos.x = aX;
